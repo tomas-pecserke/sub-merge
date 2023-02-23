@@ -1,0 +1,11 @@
+FROM php:8.1-cli-alpine
+
+RUN set -xe \
+  && apk add --no-cache icu-dev composer \
+  && docker-php-ext-install intl
+
+EXPOSE 80
+VOLUME ["/config"]
+
+WORKDIR /app
+CMD php -S 0.0.0.0:80 public/index.php
