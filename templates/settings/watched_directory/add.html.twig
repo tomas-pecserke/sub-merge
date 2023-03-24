@@ -1,0 +1,34 @@
+{% extends 'setup.html.twig' %}
+
+{% block title %}Setup - Add watched directory{% endblock %}
+
+{% block page_content %}
+  <table class="table table-sm table-striped caption-top">
+    <caption><strong>Current directory:</strong> {{ path }}</caption>
+    <thead>
+      <tr>
+        <th scope="col" style="width: 3em">Type</th>
+        <th scope="col">Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span data-feather="corner-up-left"></span></td>
+        <td><a href="{{ path('settings.watched_directory.add', {path: parentPath}) }}">..</a></td>
+      </tr>
+      {% for dir in dirs %}
+        <tr>
+          <td><span data-feather="folder"></span></td>
+          <td><a href="{{ path('settings.watched_directory.add', {path: dir.filename}) }}">{{ dir.basename }}</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="text-end">
+    <form method="post" action="{{ path('settings.watched_directory.add') }}">
+      <input type="hidden" name="path" value="{{ path }}"/>
+      <a href="{{ path(initialized ? 'settings.index' : 'settings.setup') }}" class="btn btn-danger">Cancel</a>
+      <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+  </div>
+{% endblock %}

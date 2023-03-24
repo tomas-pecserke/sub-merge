@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block top_bar %}{% endblock %}
+
+{% block side_menu %}{% endblock %}
+
+{% block page_bar %}
+  <div
+      class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ block('page_title') }}</h1>
+    {{ block('page_menu') }}
+  </div>
+{% endblock page_bar %}
+
+{% block main_content %}
+  <main class="w-50">
+    {{ block('alerts') }}
+    {{ block('page_bar') }}
+    {{ block('page_content') }}
+  </main>
+{% endblock main_content %}

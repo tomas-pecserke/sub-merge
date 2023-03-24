@@ -1,0 +1,47 @@
+<div
+    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h5>Watched directories</h5>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group me-2">
+      <a type="button" class="btn btn-sm btn-outline-secondary" href="{{ path('settings.watched_directory.add') }}">
+        <span data-feather="plus"></span>
+        Add Directory
+      </a>
+    </div>
+  </div>
+</div>
+
+<table class="table table-striped caption-top">
+  <thead>
+    <tr>
+      <th scope="col">Path</th>
+      <th scope="col" class="text-end">Free Space</th>
+      <th scope="col" class="text-end">Total Space</th>
+      <th scope="col" class="text-end">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if watchedDirs is empty %}
+      <tr>
+        <td colspan="4" class="text-muted">
+          <em>
+            There are no watched directories yet.
+            <a href="{{ path('settings.watched_directory.add') }}">Add a new one.</a>
+          </em>
+        </td>
+      </tr>
+    {% endif %}
+    {% for dir in watchedDirs %}
+      <tr>
+        <td>{{ dir.path }}</td>
+        <td class="text-end">{{ dir.free_space|file_size }}</td>
+        <td class="text-end">{{ dir.total_space|file_size }}</td>
+        <td class="text-end">
+          <a class="link-danger" title="Remove" href="{{ path('settings.watched_directory.remove', {path: dir.path}) }}">
+            <span data-feather="x"></span>
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

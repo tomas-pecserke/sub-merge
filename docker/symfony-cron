@@ -1,0 +1,2 @@
+# call symfony cron every minute
+* * * * * /app/bin/console cron:run > /dev/null 2>&1

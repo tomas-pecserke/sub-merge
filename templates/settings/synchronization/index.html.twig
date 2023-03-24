@@ -1,0 +1,11 @@
+<h5>Synchronization</h5>
+
+<p><strong>Interval:</strong></p>
+<div class="btn-group" role="group" aria-label="Interval">
+  {% for interval in intervals %}
+    <a class="btn btn-outline-primary {% if syncInterval == interval.value %}active{% endif %}"
+       href="{{ path('settings.synchronization.set-interval', {interval: interval.value}) }}">
+      {{ interval.title }}
+    </a>
+  {% endfor %}
+</div>

@@ -9,8 +9,10 @@ services:
     volumes:
       - 'config:/config'
       - '.:/app'
+      - '/home/tomas/videos/:/data/'
     ports:
       - '8080:80'
+    restart: unless-stopped
 
 volumes:
   config: {}

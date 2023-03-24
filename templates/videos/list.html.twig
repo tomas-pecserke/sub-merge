@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Videos{% endblock %}
+
+{% block page_menu %}
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group me-2">
+      <a type="button" class="btn btn-sm btn-outline-secondary" href="{{ path('video.sync') }}">
+        <span data-feather="refresh-cw"></span>
+        Sync
+      </a>
+    </div>
+  </div>
+{% endblock page_menu %}
+
+{% block page_content %}
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">{{ knp_pagination_sortable(pagination, 'Title', 'v.title') }}</th>
+          <th scope="col">{{ knp_pagination_sortable(pagination, 'Path', 'v.path') }}</th>
+          <th scope="col">{{ knp_pagination_sortable(pagination, 'Video Codec', 'v.videoCodec') }}</th>
+          <th scope="col">{{ knp_pagination_sortable(pagination, 'Audio Codec', 'v.audioCodec') }}</th>
+          <th scope="col">{{ knp_pagination_sortable(pagination, 'Format', 'v.container') }}</th>
+          <th scope="col" class="text-end">{{ knp_pagination_sortable(pagination, 'Size', 'v.size') }}</th>
+          <th scope="col" class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if pagination.items is empty %}
+          <tr>
+            <td colspan="7">
+              There are no monitored files yet.
+            </td>
+          </tr>
+        {% endif %}
+        {% for video in pagination.items %}
+          <tr>
+            <th scope="row">
+              <a href="{{ path('video.detail', {id: video.id}) }}">{{ video.title }}</a>
+            </th>
+            <td>{{ video.path }}</td>
+            <td>{{ video.videoCodec }}</td>
+            <td>{{ video.audioCodec }}</td>
+            <td>{{ video.container }}</td>
+            <td class="text-end">{{ video.size|file_size }}</td>
+            <td class="text-end">
+              <a href="{{ path('video.detail', {id: video.id}) }}" title="Detail">
+                <span data-feather="eye"></span>
+              </a>
+              <a href="{{ path('video.sync_one', {id: video.id}) }}" title="Sync">
+                <span data-feather="refresh-cw"></span>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      {% if pagination.pageCount > 1 %}
+        <tfoot>
+          <tr>
+            <td colspan="8" class="text-center">
+              {{ knp_pagination_render(pagination) }}
+            </td>
+          </tr>
+        </tfoot>
+      {% endif %}
+    </table>
+  </div>
+{% endblock %}
